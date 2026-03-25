@@ -1,0 +1,15 @@
+name: Greet new issues
+on:
+  issues:
+    types: [opened]
+permissions:
+  issues: write
+jobs:
+  greet:
+    name: Greet new issue author
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh issue comment "$ISSUE_URL" --body "Thanks for opening this issue! We'll look into it soon."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
